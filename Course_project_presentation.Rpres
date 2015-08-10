@@ -1,0 +1,46 @@
+Developing Data Products - Course Project
+========================================================
+author: Arvind Krishna
+date: `r date()`
+transition: rotate
+transition-speed: slow
+
+Superstore Performance Analysis
+========================================================
+
+This presentation is being created as part of the course project of the Developing Data Products class by John Hopkins University on Coursera. The goal of the project is to:
+
+- Create a shiny application and deploy it on Rstudio's servers
+- Use slidify or Rstudio Presenter to prepare a reproducible pitch presentation of the developed application
+
+The 1st goal of developing a shiny applitcation has already been achieved. This presentation is being developed using Rstudio Presenter to prepare a reproducible pitch of the developed application thereby achieving the 2nd goal of the project.
+
+The Application
+========================================================
+In the current competetitive world, a superstore needs to be very efficient in its operations in order to stay and grow in the market. The most significant measure to quantify the performance of the store is **profit** which in turn is driven by revenue and cost. The shiny app assists in identification of **drivers of profitability**, revenue and cost by profiling the same along parameters like region, customer segment, product category etc. This enables the store to get an idea of:
+- Factors driving high profitability, high revenue or low costs so that the store may leverage the same to increase its profit further and enhance growth
+- Factors driving low profitability, low revenue or high costs so that the store may rethink its strategy with respect to the corresponding segments
+
+Links for application, data and source code
+========================================================
+
+**Application**: The appliation is deployed at https://arvindk.shinyapps.io/Course_project_app
+
+**Data**: Sample superstore sales data has been used in the application. It can be downloaded from http://community.tableau.com/servlet/JiveServlet/downloadBody/1236-102-1-1149/Sample%20-%20Superstore%20Sales%20(Excel).xls
+
+**Source code**: The source codes for the shiny application (ui.R and server.R) and this presentaion (Course_project_presentation.Rpres) are at https://github.com/arvindkrishna87/Developing-Data-Products/tree/master
+
+Sample chart
+========================================================
+
+Below is a sample chart which gives an insight into the type of analysis performed by the application. The chart below shows the distribution of profit among different regions and product categories (The chart is created from an embbedded R code)
+
+```{r, echo=FALSE}
+library(XLConnect)
+library(ggplot2)
+if(!file.exists("store_data.xls")){
+  download.file("http://community.tableau.com/servlet/JiveServlet/downloadBody/1236-102-1-1149/Sample%20-%20Superstore%20Sales%20(Excel).xls","ala.xls")
+}
+storeData <- readWorksheetFromFile("store_data.xls",sheet=1)
+ggplot(storeData,aes(x=Region,y=Profit,color=Product.Category))+geom_point()+labs(x="Region")+scale_color_discrete(name="Product Category")+theme(axis.text.x = element_text(angle = 90, hjust = 1))
+```
